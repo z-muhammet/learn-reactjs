@@ -22,7 +22,7 @@ function Header() {
 }
 
 function Demowelcomeh1(part) {
-  return <h1>Welcome to jsx expression demo // {part}</h1>
+  return <h1>Welcome to jsx props demo // {part}</h1>
   
 }
 
@@ -35,7 +35,7 @@ function Main() {
       <div style={{width: '100%',minHeight: '80%',backgroundColor: "red", display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', margin: '8px'}}>
         <LeftMenu />
         <div style={{width: '80%',height: '100%',backgroundColor: "yellow", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          <ContentCreator pieces={6} />
+          <ContentList />
         </div>
       </div>
 
@@ -55,28 +55,55 @@ function LeftMenu() {
   )
 }
 
-function Content({ parts }) {
+function Content({ item }) {
   return (
-    <div style={{width: '80%',height: '100%',backgroundColor: "yellow", display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
-      {Demowelcomeh1('Content Section ' + parts)}
+    <div style={{width: '80%',height: '100%',backgroundColor: "yellow", display: 'flex', flexDirection:'column', justifyContent: 'start', alignItems: 'start'}}>
+      <h2>{item.title}</h2>
+      <p>{item.body}</p>
+      <img src={item.image} alt={item.title} style={{width: '10%'}}/>
+
     </div>
   )
 }
-function ContentCreator({ pieces }) {
-  const items = [];
-  for (let i = 0; i < pieces; i++) {
-    items.push(<Content key={i} parts={i} />);
-  }
-  return <>{items}</>;
+
+function ContentList() {
+  const contentItems = [
+    {
+      "title": "First Content",
+      "body": "This is the body of the first content.",
+      "image": "/img/1.png"
+    },
+    {
+      "title": "Second Content",
+      "body": "This is the body of the second content.",
+      "image": "/img/2.png"
+    },
+    {
+      "title": "Third Content",
+      "body": "This is the body of the third content.",
+      "image": "/img/3.png"
+    },
+    {
+      "title": "Fourth Content",
+      "body": "This is the body of the fourth content.",
+      "image": "/img/4.png"
+    }
+  ];
+  return (
+    contentItems.map((item, index) => (
+      <Content key={index} item={item} />
+    ))
+  ) 
 }
 
 Content.propTypes = {
-    parts: PropTypes.number.isRequired 
-};
+  item: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  })
+}
 
-ContentCreator.propTypes = {
-    pieces: PropTypes.number.isRequired 
-};
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
