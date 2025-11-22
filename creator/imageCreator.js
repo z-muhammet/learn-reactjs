@@ -1,8 +1,5 @@
-import * as dotenv from 'dotenv';
-import path from 'path';
-dotenv.config({ path: path.join(process.cwd(), './', '.env') });
+const SPLASH_ACCESS_KEY = import.meta.env.VITE_SPLASH_ACCESS_KEY;
 
-const SPLASH_ACCESS_KEY = process.env.Splash_access_Key;
 let _regularUrl = "";
 
 export async function imageCreators(searchKey) {

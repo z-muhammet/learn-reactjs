@@ -14,7 +14,7 @@ const generateDescription = sentenceCount => {
 };
 
 
-async function createCustomDataArray({
+export async function createCustomDataArray({
   itemCount = 1,
   wordCount = 1,
   sentenceCount = 1,
@@ -65,19 +65,5 @@ async function createCustomDataArray({
 
   return customList;
 }
-
-
-
-(async () => {
-  const customList = await createCustomDataArray({
-    itemCount: 2,
-    wordCount: 2,
-    sentenceCount: 4,
-    shortSentence: 3,
-    imageCount: 2
-  });
-  console.log(customList);
-  console.log("Toplam öğe sayısı:", customList.length);
-})();
 
 
