@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+html, body { @apply min-h-screen bg-gray-50 text-gray-900; }
+#root { @apply p-6; }
+
+/* Example component class */
+.btn { @apply inline-flex items-center gap-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 font-medium transition-colors; }
