@@ -1,17 +1,8 @@
+import App from "../../../reactExampleWithTailwind/src/app";
 
-function handleNextButton() {
-  return(
-    console.log("İleri butonuna tıklandı")
-  );
-}
 
-function handleBackButton() {
-  return(
-    console.log("Geri butonuna tıklandı")
-  );
-}
 
-export default function Gallery({ images }) {
+export default function Gallery({ images, handleNextButton, handleBackButton }) {
   return (
     <div className="w-full md:w-1/2 mt-10 md:mt-0">
       <div className="h-4/5 flex justify-center">
