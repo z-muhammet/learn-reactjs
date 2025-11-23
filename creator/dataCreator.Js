@@ -1,7 +1,7 @@
 
 import { imageCreators } from './imageCreator.js';
 const generateRandomText = wordCount => {
-  const apiUrl = `https://random-word-api.herokuapp.com/word?number=${wordCount}`;
+  const apiUrl = `https://random-word-api.vercel.app/api?words=${wordCount}`;
   return fetch(apiUrl)
     .then(response => response.json())
     .then(data => data.join(' '));
