@@ -1,6 +1,6 @@
 import { dynamicData } from './database/data';
 import React, { useEffect, useState, useRef } from 'react';
-import MainContent from './components/mainContent';
+import MainContent from '../../mainContent';
 import Title from './components/title';
 
 
