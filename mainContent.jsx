@@ -1,5 +1,5 @@
-import Detail from './detail';
-import Galery from './gallery';
+import Detail from './React-State/src/components/detail';
+import Galery from './React-State/src/components/gallery';
 import { useState } from 'react';
 
 
