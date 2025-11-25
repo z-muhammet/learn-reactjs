@@ -11,6 +11,12 @@ let items = [
 ];
 let completedItemsCount = items.filter(item => item.completed).length;
 
+export function addItem(newItem) {
+  items.push(newItem);
+  completedItemsCount = items.filter(item => item.completed).length;
+  return completedItemsCount;
+}
+
 export default function List({ Handles, HandlesLog }) {
 
   return (
@@ -48,7 +54,7 @@ function Item({ item, Handles, deleteItems }) {
 
   return (
     <li className={item.completed ? 'completed' : ''} onClick={handleCheckChange}>
-      <input type="checkbox" checked={item.completed} onChange={handleCheckboxClick} />
+      <input type="checkbox" checked={item.completed} readOnly onClick={handleCheckboxClick} />
       <span className="item-name">{item.name} | </span>
       <span className="item-quantity">({item.quantity})</span>
       <button className="delete-button" onClick={deleteItem}>❌</button>

@@ -1,10 +1,26 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
-import List from "./mainList";
+import { useEffect, useState } from 'react';
+import List ,{ addItem} from "./mainList";
+import Header from "./Header";
+import Form from "./form";
+import Summary from "./summary";
+
 
 function App() {
-  const [completedItem, setCompletedItem] = useState(2); // Başlangıçta 2 tamamlanmış ürün var
-  const [totalItems, setTotalItems] = useState(6); // Toplam 6 ürün var
+  const [completedItem, setCompletedItem] = useState(2);
+  const [totalItems, setTotalItems] = useState(6);
+  const [newItems, setNewItems] = useState([]);
+
+  const AddNewItem = (item) => {
+    setNewItems(item);
+    setCompletedItem(addItem(item));
+    setTotalItems(prevTotal => prevTotal + 1);
+  }
+
+  useEffect(() => { console.log("New item added:", newItems); }, [newItems]);
+
+  useEffect(() => { console.log("Current new items state:", newItems); }, [newItems]);
+
   const HandleCompletedItem = (value) => {
     setCompletedItem(value);
     console.log("Completed items count updated to:", value);
@@ -18,38 +34,12 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <Form />
-      <List Handles={HandleCompletedItem} HandlesLog={HandleLogDeletedItem} />
-      <Summary completedItem={completedItem} />
+      <Form ItemSend={AddNewItem} />
+      <List Handles={HandleCompletedItem} HandlesLog={HandleLogDeletedItem} HandlesAddItem={setNewItems} />
+      <Summary completedItem={completedItem} totalItems={totalItems} />
     </div>
   );
 }
 
-function Header() {
-  return (
-    <h1>🛒 Shopping List</h1>
-  );
-}
-
-function Form() {
-  return (
-    <form className="form">
-      <input type="text" placeholder="Ürün adı giriniz" />
-      <select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <button type="submit">Ekle</button>
-    </form>
-  );
-}
-
-
-function Summary({ completedItem }) {
-  return (
-    <footer className="summary">Alışveriş sepetinizde {completedItem} ürün bulunmaktadır.</footer>
-  );
-}
 
 export default App
