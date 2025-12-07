@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FilmCard from "./filmCard";
-import SelectedCard from "./selectedCard";
+import SelectedCardContainer from "./selectedCardContainer";
 
 export default function MainContent({ movies, selectedMovies, selectedFunc, detailsMovie, removeSelectedMovie }) {
   const [isOpenSelectedCard, setIsOpenSelectedCard] = useState(true);
@@ -23,7 +23,7 @@ export default function MainContent({ movies, selectedMovies, selectedFunc, deta
           </div>
           <FilmCard movies={isOpenFilmCard ? movies : []} selectedFunc={selectedFunc} detailsMovie={detailsMovie} />
         </div>
-        <aside className="sticky top-6 w-full md:w-1/4 self-start">    
+        <aside className="sticky top-6 w-full md:w-1/4 self-start flex flex-col-reverse">    
           <div className="w-full max-h-[80vh] overflow-y-auto overflow-hidden scroll-smooth no-scrollbar flex flex-col rounded-b-3xl">
             <div className="relative mb-4 bg-zinc-200/5 w-full duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-950/30 hover:cursor-pointer" onClick={()=>{setIsOpenSelectedCard(!isOpenSelectedCard)}}>
               <span className="p-1 items-center justify-center bg-pink-950/10 border-2 border-pink-200 rounded-b-xl flex top-0 left-0 ">
@@ -31,7 +31,7 @@ export default function MainContent({ movies, selectedMovies, selectedFunc, deta
                 </i>
               </span>
             </div>
-            <SelectedCard movies={isOpenSelectedCard ? selectedMovies : []} removeSelectedMovie={removeSelectedMovie} />
+            <SelectedCardContainer movies={selectedMovies} isOpenCard={isOpenSelectedCard} removeSelectedMovie={removeSelectedMovie} />
           </div>
         </aside>
       </div>

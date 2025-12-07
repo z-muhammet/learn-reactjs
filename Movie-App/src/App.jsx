@@ -48,8 +48,8 @@ function App() {
     const duplicate = selectedMovies.find(movie => movie.Id === id);
     
     if (movie && !duplicate) {
-      const updatedMovie = { ...movie, Open: true };
-      setSelectedMovies([...selectedMovies, updatedMovie]);
+      const updatedMovie = { ...movie, rating: 3 };
+      setSelectedMovies([updatedMovie,...selectedMovies]);
     } else if (duplicate) {
       duplicateMovieData = duplicate;  
       handleOpen();
@@ -60,6 +60,7 @@ function App() {
   const removeSelectedMovie = (id) => {
     setSelectedMovies(selectedMovies.filter(movie => movie.Id !== id));
   }
+
 
   useEffect(() => {
     console.log("Selected movies:", selectedMovies);
