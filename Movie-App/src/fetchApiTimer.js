@@ -1,3 +1,5 @@
+import abortController from 'abort-controller';
+
 let timer;
 
 export function startFetchApiTimer(callback, delay) {

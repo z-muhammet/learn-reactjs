@@ -32,7 +32,7 @@ export default function FilmCard({ movies, selectedFunc, detailsMovie }) {
         {movies.map((movie, index) => {
           return (
             <React.Fragment key={movie.Id}>
-              <div className={`transition-all ${movie.Open ? getMovieGridSpanClass(index) : "group"} animate-in fade-in slide-in-from-right-4 from-opacity-0`} style={{ animationDuration: `${index * 500 + 100}ms` }}>
+              <div id="movie.Id" className={`transition-all ${movie.Open ? getMovieGridSpanClass(index) : "group"} animate-in fade-in slide-in-from-right-4 from-opacity-0`} style={{ animationDuration: `${index%12 * 500 + 100}ms` }}>
                 <div className="rounded-lg bg-cyan-900/10 border border-neutral-700 overflow-hidden shadow-sm transition-all duration-500 cursor-pointer group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-blue-500/30">
                   <img
                     src={movie.Poster}
@@ -47,7 +47,7 @@ export default function FilmCard({ movies, selectedFunc, detailsMovie }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-0 font-semibold text-sm hover:gap-1">
                       <button className=" rounded-none rounded-tl-3xl rounded-tr-3xl md:rounded-tr-none md:rounded-tl-none md:rounded-bl-3xl border border-double border-indigo-300 bg-linear-to-b md:bg-linear-to-r from-violet-200/40 via-pink-200/40 to-rose-300/40 text-[#171d1f] px-3 py-1 transition-all duration-300 hover:from-amber-100/40 hover:to-pink-300/40 hover:text-[#232c2f] hover:scale-105 active:scale-95 shadow-md shadow-violet-400" onClick={() => selectedFunc(movie.Id)}>Add to Watchlist</button>
                       
-                      <button className=" rounded-none rounded-bl-3xl rounded-br-3xl md:rounded-bl-none md:rounded-tr-3xl md:rounded-br-none border border-double border-indigo-300 bg-linear-to-t md:bg-linear-to-l from-violet-200/40 via-pink-200/40 to-rose-300/40 text-[#171d1f] px-3 py-1 transition-all duration-300 hover:from-amber-100/40 hover:to-pink-300/40 hover:text-[#232c2f] hover:scale-105 active:scale-95 shadow-md shadow-violet-400" onClick={() => detailsMovie(movie.Id)}>Details</button>
+                      <button href={`#${movie.Id}`} className=" rounded-none rounded-bl-3xl rounded-br-3xl md:rounded-bl-none md:rounded-tr-3xl md:rounded-br-none border border-double border-indigo-300 bg-linear-to-t md:bg-linear-to-l from-violet-200/40 via-pink-200/40 to-rose-300/40 text-[#171d1f] px-3 py-1 transition-all duration-300 hover:from-amber-100/40 hover:to-pink-300/40 hover:text-[#232c2f] hover:scale-105 active:scale-95 shadow-md shadow-violet-400" onClick={() => detailsMovie(movie.Id)}>Details</button>
                     </div>
                   </div>
                 </div>

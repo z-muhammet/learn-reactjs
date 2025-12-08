@@ -5,6 +5,7 @@ const imageBaseUrl = 'https://image.tmdb.org/t/p/original';
 
 export async function searchMovies(
   query = "", 
+  signal, 
   page = 1, 
   includeAdult = false
 ) {
@@ -16,7 +17,7 @@ export async function searchMovies(
   const requestUrl = `${baseUrl}/search/movie?api_key=${apiKey}&query=${encodedQuery}&page=${page}&include_adult=${includeAdult}`;
 
   try {
-    const response = await fetch(requestUrl);
+    const response = await fetch(requestUrl, { signal });
 
     if (!response.ok) {
       throw new Error(`Movie search failed with status: ${response.status}`);
@@ -30,17 +31,18 @@ export async function searchMovies(
       Poster: movie.poster_path!== null ? `${imageBaseUrl}${movie.poster_path}`: 'https://placehold.co/1000x1500/png/?text=No+Image',
       Year: movie.release_date,
     }));
-    const totalResults = responseData.total_results;
-    const totalPages = responseData.total_pages;
-    
 
     return  {
       results: formattedResults,
-      pageSize: totalResults,
-      totalPages: totalPages
+      pageSize: responseData.total_results,
+      totalPages: responseData.total_pages
     };
   } catch (error) {
-    console.error('An error occurred while searching movies:', error);
+    if (error.name === 'AbortError') {
+      console.log('🚫 Details request was aborted');
+      return null;
+    }
+    console.error('An error occurred while fetching movie details:', error);
     throw error;
   }
 }
@@ -64,10 +66,10 @@ export async function detailsMovie(movieId) {
 
     const writers = movie.credits?.crew
       ?.filter(person => ['Screenplay', 'Writer', 'Story'].includes(person.job))
-      .map(person => person.name)
+      ?.map(person => person.name)
       .join(', ') || '';
 
-    const genres = movie.genres?.map(g => g.name).join(', ') || '';
+    const genres = movie.genres?.map(g => g.name) || [];
     const score = movie.vote_average ? Math.round(movie.vote_average * 10) : 0;
     const country = movie.production_countries?.[0]?.iso_3166_1 
       ? `(${movie.production_countries[0].iso_3166_1})` 
